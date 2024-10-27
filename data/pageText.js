@@ -18,6 +18,14 @@ const PAGE_TEXT = {
             thirdRule: 'Três senhas incorretas bloqueiam a conta temporariamente.'
         },
         footer: '© 2024 Bug Buster Mentoria.'
+    },
+    form: {
+        instructions: {
+            firstRule: 'Preencha todos os campos obrigatórios: nome, email, senha, país e gênero.',
+            secondRule: 'Escolha suas preferências de lazer marcando as opções correspondentes.',
+            thirdRule: 'Após o envio do formulário, você receberá uma mensagem de confirmação indicando se o cadastro foi realizado com sucesso.'
+        },
+        footer: '© 2024 Bug Buster Mentoria.'
     }
 }
 module.exports = { PAGE_TEXT };

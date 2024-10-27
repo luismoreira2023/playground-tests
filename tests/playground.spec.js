@@ -1,6 +1,7 @@
 const {test} = require("@playwright/test");
 const { Homepage } = require("../pages/home");
 const { Login } = require("../pages/login");
+const { Form } = require("../pages/form");
 
 
 test('Navigate to the Playground page', async({ page }) => {
@@ -26,4 +27,15 @@ test('Login page', async({ page }) => {
     await loginPage.validateRegularAccount();
     await loginPage.validateBlockedAccount();
     await loginPage.validateFooter();
+});
+
+test('Form page', async({ page }) => {
+    const formPage = new Form(page);
+    await formPage.navigateToForm();
+    await formPage.validateTitle('Playground page');
+    await formPage.validateHeader();
+    await formPage.validateMenu();
+    await formPage.validateRules();
+    await formPage.validateFormBox();
+    await formPage.validateFooter();
 });
