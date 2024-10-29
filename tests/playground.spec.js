@@ -2,6 +2,7 @@ const {test} = require("@playwright/test");
 const { Homepage } = require("../pages/home");
 const { Login } = require("../pages/login");
 const { Form } = require("../pages/form");
+const { Table } = require("../pages/table");
 
 
 test('Navigate to the Playground page', async({ page }) => {
@@ -38,4 +39,15 @@ test('Form page', async({ page }) => {
     await formPage.validateRules();
     await formPage.validateFormBox();
     await formPage.validateFooter();
+});
+
+test('Table page', async({ page }) => {
+    const tablePage = new Table(page);
+    await tablePage.navigateToTable();
+    await tablePage.validateTitle('Playground page');
+    await tablePage.validateHeader();
+    await tablePage.validateMenu();
+    await tablePage.validateInstructions();
+    await tablePage.validateComponents();
+    await tablePage.validateFooter();
 });
