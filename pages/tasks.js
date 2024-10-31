@@ -1,7 +1,7 @@
 const { expect } = require("@playwright/test");
 const { PAGE_TEXT } = require("../data/pageText");
 
-class Table {
+class Tasks {
     constructor(page) {
         this.page = page;
         this.header = page.locator('.flex-1 > .hidden');
@@ -11,19 +11,17 @@ class Table {
         this.tableMenu = page.getByRole('link', { name: 'TABLE' });
         this.tasksMenu = page.getByRole('link', { name: 'TASKS' });
         this.aboutMenu = page.getByRole('link', { name: 'SOBRE' });
-        this.rule1 = page.getByText('Veja a tabela de personagens');
-        this.rule2 = page.getByText('A ordem dos personagens muda');
-        this.rule3 = page.getByText('São exibidas imagem, nome,');
-        this.image = page.getByRole('cell', { name: 'Image' });
-        this.name = page.getByRole('cell', { name: 'Name' });
-        this.house = page.getByRole('cell', { name: 'House' });
-        this.birthDate = page.getByRole('cell', { name: 'Date of Birth' });
-        this.actor = page.getByRole('cell', { name: 'Actor' });
+        this.rule1 = page.getByText('Adicione uma tarefa no campo');
+        this.rule2 = page.getByText('A tarefa será listada abaixo');
+        this.rule3 = page.getByText('Clique no botão "Completar"');
+        this.taskTitle = page.getByRole('heading', { name: 'Lista de Tarefas' });
+        this.taskBox = page.getByPlaceholder('Digite sua tarefa');
+        this.submission = page.getByRole('button', { name: 'Adicionar' });
         this.footer = page.getByText('© 2024 Bug Buster Mentoria.');
     }
 
-    async navigateToTable() {
-        await this.page.goto('/table');
+    async navigateToTasks() {
+        await this.page.goto('/tasks');
     }
 
     async validateTitle(title) {
@@ -44,21 +42,19 @@ class Table {
     }
 
     async validateInstructions() {
-        await expect(this.rule1).toHaveText(PAGE_TEXT.table.instructions.firstRule);
-        await expect(this.rule2).toHaveText(PAGE_TEXT.table.instructions.secondRule);
-        await expect(this.rule3).toHaveText(PAGE_TEXT.table.instructions.thirdRule);
+        await expect(this.rule1).toHaveText(PAGE_TEXT.tasks.instructions.firstRule);
+        await expect(this.rule2).toHaveText(PAGE_TEXT.tasks.instructions.secondRule);
+        await expect(this.rule3).toHaveText(PAGE_TEXT.tasks.instructions.thirdRule);
     }
 
-    async validateComponents() {
-        await expect(this.image).toBeVisible();
-        await expect(this.name).toBeVisible();
-        await expect(this.house).toBeVisible();
-        await expect(this.birthDate).toBeVisible();
-        await expect(this.actor).toBeVisible();
+    async validateNewTask() {
+        await expect(this.taskTitle).toBeVisible();
+        await expect(this.taskBox).toBeVisible();
+        await expect(this.submission).toBeVisible();
     }
 
     async validateFooter() {
         await expect(this.footer).toHaveText(PAGE_TEXT.footer);
     }
 }
-module.exports = { Table };
+module.exports = { Tasks };
