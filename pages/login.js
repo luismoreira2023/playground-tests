@@ -33,6 +33,13 @@ class Login {
         this.blockedPassword = page.getByText('Senha:').nth(1);
         this.blockedPasswordName = page.getByText('Senha: password123').nth(1);
         this.footer = page.getByText('© 2024 Bug Buster Mentoria.');
+        this.successMessage = page.getByText('Usuário logado com sucesso!');
+        this.logged = page.getByText('Usuário teste logado');
+        this.logoutButton = page.getByRole('button', { name: 'Logout' });
+        this.logoutMessage = page.getByText('Você foi desconectado. Por favor, faça login.');
+        this.blockedMessage = page.getByText('Usuário bloqueado!');
+        this.failedMessage = page.getByText('Usuário não encontrado!');
+        this.errorMessage = page.getByText('Usuário ou senha estão');
     }
 
     async navigateToLogin() {
@@ -91,6 +98,57 @@ class Login {
     async validateFooter() {
         await expect(this.footer).toHaveText(PAGE_TEXT.footer);
     }
+
+    async fillUser() {
+        await this.userBox.fill('teste');
+    }
+
+    async blockedUser() {
+        await this.userBox.fill('testeblock');
+    }
+
+    async failedUser() {
+        await this.userBox.fill('abc123');
+    }
+
+    async fillPassword() {
+        await this.passwordBox.fill('password123');
+    }
+    
+    async failedPassword() {
+        await this.passwordBox.fill('LFR');
+    }
+
+    async clickLogin() {
+        await this.loginButton.click();
+    }
+
+    async success() {
+        await expect(this.successMessage).toBeVisible();
+    }
+
+    async blockedAccount() {
+        await expect(this.blockedMessage).toBeVisible();
+    }
+
+    async failedAttempt() {
+        await expect(this.failedMessage).toBeVisible();
+    }
+
+    async wrongPassword() {
+        await expect(this.errorMessage).toBeVisible();
+    }
+
+    async validateLoggedText() {
+        await expect(this.logged).toBeVisible();
+        await expect(this.logoutButton).toBeVisible();
+    }
+    
+    async clickLogout() {
+        await this.logoutButton.click();
+        await expect(this.logoutMessage).toBeVisible();
+    }
+
 }
 
 module.exports = { Login };
