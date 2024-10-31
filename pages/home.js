@@ -62,7 +62,7 @@ class Homepage {
     }
 
     async validateFooter() {
-        await expect(this.footer).toHaveText(PAGE_TEXT.home.footer);
+        await expect(this.footer).toHaveText(PAGE_TEXT.footer);
     }
 }
 

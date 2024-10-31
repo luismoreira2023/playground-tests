@@ -8,7 +8,6 @@ const PAGE_TEXT = {
             table: 'Tabela dinâmica',
             others: 'E muito mais!'
         },
-        footer: '© 2024 Bug Buster Mentoria.'
     },
     login: {
         instructions: {
@@ -17,7 +16,34 @@ const PAGE_TEXT = {
             secondRule: 'Login ou senha incorretos devem retornar uma mensagem de erro.',
             thirdRule: 'Três senhas incorretas bloqueiam a conta temporariamente.'
         },
-        footer: '© 2024 Bug Buster Mentoria.'
-    }
+    },
+    form: {
+        instructions: {
+            firstRule: 'Preencha todos os campos obrigatórios: nome, email, senha, país e gênero.',
+            secondRule: 'Escolha suas preferências de lazer marcando as opções correspondentes.',
+            thirdRule: 'Após o envio do formulário, você receberá uma mensagem de confirmação indicando se o cadastro foi realizado com sucesso.'
+        },
+    },
+    table: {
+        instructions: {
+            firstRule: 'Veja a tabela de personagens do Harry Potter abaixo.',
+            secondRule: 'A ordem dos personagens muda a cada carregamento da página.',
+            thirdRule: 'São exibidas imagem, nome, casa, data de nascimento e ator.'
+        },
+    },
+    tasks: {
+        instructions: {
+            firstRule: 'Adicione uma tarefa no campo de input e clique em "Adicionar Tarefa".',
+            secondRule: 'A tarefa será listada abaixo na seção "Tarefas para fazer".',
+            thirdRule: 'Clique no botão "Completar" ao lado da tarefa para movê-la para a seção de tarefas completas.'
+        }
+    },
+    about: {
+        aboutMe: {
+            firstPart: 'Sou um engenheiro de testes apaixonado por tecnologia',
+            secondPart: 'e mentor na área de automação de testes.'
+        }
+    },
+    footer: '© 2024 Bug Buster Mentoria.',
 }
 module.exports = { PAGE_TEXT };
