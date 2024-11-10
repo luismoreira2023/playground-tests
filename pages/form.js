@@ -21,18 +21,27 @@ class Form {
         this.emailBox = page.getByPlaceholder('Digite seu e-mail');
         this.password = page.getByText('Senha *');
         this.passwordBox = page.getByPlaceholder('Digite sua senha');
-        this.country = page.getByText('País *');
+        this.country = page.getByRole('link', { name: 'FORM' });
         this.countryBox = page.getByLabel('País *');
         this.genderTitle = page.getByText('Gênero *');
-        this.gender1 = page.locator('label').filter({ hasText: 'Masculino' });
-        this.gender2 = page.locator('label').filter({ hasText: 'Feminino' });
-        this.gender3 = page.locator('label').filter({ hasText: 'Outro' });
+        this.genders = {
+            Masculino: page.getByLabel('Masculino'),
+            Feminino: page.getByLabel('Feminino'),
+            Outro: page.getByLabel('Outro')
+        };
         this.hobbieTitle = page.getByText('Lazer', { exact: true });
-        this.hobbie1 = page.locator('label').filter({ hasText: 'Ler' });
-        this.hobbie2 = page.locator('label').filter({ hasText: 'Viajar' });
-        this.hobbie3 = page.locator('label').filter({ hasText: 'Video Games' });
-        this.button = page.getByRole('button', { name: 'Enviar' });
+        this.hobbies = {
+            Ler: page.getByLabel('Ler'),
+            Jogos: page.getByLabel('Jogos'),
+            Televisão: page.getByLabel('Televisão'),
+            Viajar: page.getByLabel('Viajar'),
+            Esportes: page.getByLabel('Esportes'),
+            Cantar: page.getByLabel('Cantar'),  
+        }
+        this.submitButton = page.getByRole('button', { name: 'Enviar' });
         this.footer = page.getByText('© 2024 Bug Buster Mentoria.');
+        this.successMessage = page.getByText('Sucesso!');
+        this.successInfo = page.getByText('O formulário foi enviado com');
     }
 
     async navigateToForm() {
@@ -73,18 +82,52 @@ class Form {
         await expect(this.country).toBeVisible();
         await expect(this.countryBox).toBeVisible();
         await expect(this.genderTitle).toBeVisible();
-        await expect(this.gender1).toBeVisible();
-        await expect(this.gender2).toBeVisible();
-        await expect(this.gender3).toBeVisible();
         await expect(this.hobbieTitle).toBeVisible();
-        await expect(this.hobbie1).toBeVisible();
-        await expect(this.hobbie2).toBeVisible();
-        await expect(this.hobbie3).toBeVisible();
-        await expect(this.button).toBeVisible();
+        await expect(this.submitButton).toBeVisible();
     }
 
     async validateFooter() {
         await expect(this.footer).toHaveText(PAGE_TEXT.footer);
+    }
+
+    async fillName(name) {
+        await this.nameBox.fill(name);
+    }
+
+    async fillEmail(email) {
+        await this.emailBox.fill(email);
+    }
+
+    async fillPassword(password) {
+        await this.passwordBox.fill(password);
+    }
+
+    async selectCountry(countryName) {
+        await this.country.click();
+        await this.countryBox.selectOption(countryName);
+    }
+
+    async selectGender(gender) {
+        await this.genders[gender].click();
+    }
+
+    async selectHobbies(hobbies) {
+        for (const hobby of hobbies) {
+            await this.selectHobby(hobby);
+        }
+    }
+
+    async selectHobby(hobby) {
+        await this.hobbies[hobby].click();
+    }
+
+    async submitForm() {
+        await this.submitButton.click();
+    }
+
+    async submitSuccess() {
+        await expect(this.successMessage).toBeVisible();
+        await expect(this.successInfo).toHaveText('O formulário foi enviado com sucesso.');
     }
 }
 module.exports = { Form };
