@@ -42,6 +42,11 @@ class Form {
         this.footer = page.getByText('© 2024 Bug Buster Mentoria.');
         this.successMessage = page.getByText('Sucesso!');
         this.successInfo = page.getByText('O formulário foi enviado com');
+        this.nameFailure = page.getByText('O campo nome é obrigatório.');
+        this.emailFailure = page.getByText('O campo email é obrigatório.');
+        this.passwordFailure = page.getByText('O campo senha é obrigatório.');
+        this.countryFailure = page.getByText('O campo país é obrigatório.');
+        this.genderFailure = page.getByText('O campo gênero é obrigatório.');
     }
 
     async navigateToForm() {
@@ -128,6 +133,14 @@ class Form {
     async submitSuccess() {
         await expect(this.successMessage).toBeVisible();
         await expect(this.successInfo).toHaveText('O formulário foi enviado com sucesso.');
+    }
+
+    async submitFailures() {
+        await expect(this.nameFailure).toBeVisible();
+        await expect(this.emailFailure).toBeVisible();
+        await expect(this.passwordFailure).toBeVisible();
+        await expect(this.countryFailure).toBeVisible();
+        await expect(this.genderFailure).toBeVisible();
     }
 }
 module.exports = { Form };
