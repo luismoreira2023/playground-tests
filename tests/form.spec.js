@@ -101,3 +101,29 @@ test('Create Portuguese user', async ({ page }) => {
     await formPage.submitForm();
     await formPage.submitSuccess();
 });
+
+test('Send form with no data', async ({ page }) => {
+    const formPage = new Form(page);
+    await formPage.navigateToForm();
+    await formPage.validateTitle('Playground page');
+    await formPage.validateHeader();
+    await formPage.validateMenu();
+    await formPage.validateRules();
+    await formPage.validateFormBox();
+    await formPage.validateFooter();
+    await formPage.submitForm();
+    await formPage.submitFailures();
+});
+
+test('Send invalid email', async ({ page }) => {
+    const formPage = new Form(page);
+    await formPage.navigateToForm();
+    await formPage.validateTitle('Playground page');
+    await formPage.validateHeader();
+    await formPage.validateMenu();
+    await formPage.validateRules();
+    await formPage.validateFormBox();
+    await formPage.validateFooter();
+    await formPage.fillEmail('luisfilipe');
+    await formPage.submitForm();
+});
