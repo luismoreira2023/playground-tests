@@ -22,6 +22,26 @@ class Table {
         this.footer = page.getByText('© 2024 Bug Buster Mentoria.');
     }
 
+    getCharImageLocator(character) {
+        return this.page.getByRole('img', { name: character });
+    }
+
+    getCharNameLocator(character) {
+        return this.page.locator('#tableCharacterName' + character.replace(' ', ''));
+    }
+
+    getHouseNameLocator(character) {
+        return this.page.locator('#tableCharacterHouse' + character.replace(' ', ''));
+    }
+
+    getBirthDateLocator(dateOfBirth) {   
+        return this.page.getByRole('cell', { name: dateOfBirth });
+    }
+
+    getActorNameLocator(actor) {
+        return this.page.getByRole('cell', { name: actor });
+    }
+
     async navigateToTable() {
         await this.page.goto('/table');
     }
@@ -59,6 +79,30 @@ class Table {
 
     async validateFooter() {
         await expect(this.footer).toHaveText(PAGE_TEXT.footer);
+    }
+
+    async validateCharacterImage(hpCharacter) {
+        await expect(this.getCharImageLocator(hpCharacter)).toBeVisible();
+    }
+
+    async validateCharacterName(hpCharacter) {
+        await expect(this.getCharNameLocator(hpCharacter)).toHaveText(hpCharacter);
+    }
+
+    async validateHouseName(hpCharacter, house) {
+        await expect(this.getHouseNameLocator(hpCharacter)).toHaveText(house);
+    }
+
+    async validateBirthDate(dateOfBirth) {
+        if (dateOfBirth === null) {
+            console.log('No date of birth');
+        } else {
+            await expect(this.getBirthDateLocator(dateOfBirth)).toHaveText(dateOfBirth);
+        }
+    }
+
+    async validateActorName(actor) {
+        await expect(this.getActorNameLocator(actor)).toHaveText(actor);
     }
 }
 module.exports = { Table };
