@@ -18,6 +18,12 @@ class Tasks {
         this.taskBox = page.getByPlaceholder('Digite sua tarefa');
         this.submission = page.getByRole('button', { name: 'Adicionar' });
         this.footer = page.getByText('© 2024 Bug Buster Mentoria.');
+        this.success = page.getByRole('heading', { name: 'Tarefas para fazer' });
+        this.taskEnd = page.getByRole('heading', { name: 'Tarefas Completas' });
+    }
+
+    findCompletedTask(id) {
+        return this.page.locator('#completeButton-' + id);
     }
 
     async navigateToTasks() {
@@ -55,6 +61,20 @@ class Tasks {
 
     async validateFooter() {
         await expect(this.footer).toHaveText(PAGE_TEXT.footer);
+    }
+
+    async fillTask(task) {
+        await this.taskBox.fill(task);
+    }
+
+    async submitTask() {
+        await this.submission.click();
+    }
+
+    async completeTask(id) {
+        const completedTask = this.findCompletedTask(id);
+        await completedTask.click();
+        await expect(this.taskEnd).toBeVisible();
     }
 }
 module.exports = { Tasks };
