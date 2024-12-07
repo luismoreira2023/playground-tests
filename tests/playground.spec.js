@@ -69,7 +69,7 @@ test('About page', async({ page }) => {
     const aboutPage = new About(page);
     await aboutPage.navigateToAbout();
     await aboutPage.validateTitle('Playground page');
-    await aboutPage.validateHeader();
+    await aboutPage.validateHeader('Sobre Mim');
     await aboutPage.validateMenu();
     await aboutPage.validateDescription();
     await aboutPage.validateLinks();
